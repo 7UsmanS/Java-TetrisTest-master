@@ -42,9 +42,9 @@ echo $mydir
 
 OUT_DIR="bin"
 
-#JUNIT_HOME=/home/st/susman/junit/Java-TetrisTest-master/lib # Change this to where junit jar-files are installed
+#JUNIT_HOME=/home/st/susman/junit/Java-TetrisTest-master/lib
 JUNIT_HOME="$mydir/lib"
-#HCREST_HOME="lib/"
+
 # Hack required due to memory limitations on CS1
 CS1_HACK="-J-Xmx512m"  # Limit heap to 512 MB
 
@@ -70,11 +70,13 @@ javac $CS1_HACK -version | tee -a $LOG_FILE
 
 echo "Building source code..."
   # $JAVA_HOME/bin/javac -J-Xmx512m -d $mydir/$OUT_DIR/ -cp $JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:. $mydir/src/tetris/*.java | tee -a $LOG_FILE
- javac -J-Xmx512m -d $mydir/$OUT_DIR/ -cp $JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:. $mydir/src/tetris/*.java | tee -a $LOG_FILE
+
+javac -J-Xmx512m -d $mydir/$OUT_DIR/ -cp $JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar:. $mydir/src/tetris/*.java | tee -a $LOG_FILE
+
 if [ $? != 0 ]; then
         echo "ERROR: Unable to build Aborting build..."
         exit 1
 else
-echo "Build success!"
+        echo "Build success!"
 fi
 exit 0

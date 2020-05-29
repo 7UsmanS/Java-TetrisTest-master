@@ -120,7 +120,7 @@ for i in `seq 1 $numIter`; do
     echo "**************************************************" | tee -a $LOG_FILE
     echo "Executing test run $i of $1..." | tee -a $LOG_FILE
     echo "**************************************************" | tee -a $LOG_FILE
-  #Running unit tests written for TetrisGrid class 
+    # Running unit tests written for TetrisGrid class 
     java -Xms250m -Xmx512m -cp $mydir/$OUT_DIR/:$JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar org.junit.runner.JUnitCore tetris.TetrisGridTest | tee -a $LOG_FILE
     rv=$?
     echo "Tests completed with return code: $rv" | tee -a $LOG_FILE
@@ -129,25 +129,24 @@ for i in `seq 1 $numIter`; do
     else
         let "numFail++"
     fi
-#Running unit tests written for TetrisBlock class
-java -Xms250m -Xmx512m -cp $mydir/$OUT_DIR/:$JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar org.junit.runner.JUnitCore tetris.TetrisBlockTest | tee -a $LOG_FILE
+    # Running unit tests written for TetrisBlock class
+    java -Xms250m -Xmx512m -cp $mydir/$OUT_DIR/:$JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar org.junit.runner.JUnitCore tetris.TetrisBlockTest | tee -a $LOG_FILE
     rv=$?
-echo "Tests completed with return code: $rv" | tee -a $LOG_FILE
-if [ $rv == 0 ]; then
-let "numPass++"
-else
-let "numFail++"
-fi
-#Running unit tests written for BlockGrid class
-java -Xms250m -Xmx512m -cp $mydir/$OUT_DIR/:$JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar org.junit.runner.JUnitCore tetris.BlockGridTest | tee -a $LOG_FILE
+    echo "Tests completed with return code: $rv" | tee -a $LOG_FILE
+    if [ $rv == 0 ]; then
+        let "numPass++"
+    else
+        let "numFail++"
+    fi
+    # Running unit tests written for BlockGrid class
+    java -Xms250m -Xmx512m -cp $mydir/$OUT_DIR/:$JUNIT_HOME/junit-4.13.jar:$JUNIT_HOME/hamcrest-all-1.3.jar org.junit.runner.JUnitCore tetris.BlockGridTest | tee -a $LOG_FILE
     rv=$?
-echo "Tests completed with return code: $rv" | tee -a $LOG_FILE
-if [ $rv == 0 ]; then
-let "numPass++"
-else
-let "numFail++"
-fi
-
+    echo "Tests completed with return code: $rv" | tee -a $LOG_FILE
+    if [ $rv == 0 ]; then
+        let "numPass++"
+    else
+        let "numFail++"
+    fi
 done
 stop=$SECONDS
 echo "Stop date/time:" $(date) | tee -a $LOG_FILE
@@ -155,21 +154,12 @@ echo "Stop date/time:" $(date) | tee -a $LOG_FILE
 # Calculate statistics
   # Total execution time
 duration=$(( $stop - $start ))
-  # Search log file for the number of test cases per test suite run
-
-#numCases=$(grep -i -m1 "tests" $LOG_FILE | grep -o -E '[0-9]+')
-  # Multiply test cases per run times the number of runs
-#numCases=$((numCases * numIter))
   # Search the log file for the number of failing test cases
 numCaseFail=$(grep -i -c "AssertionFailedError" $LOG_FILE)
-  # The remainder are passing tests
-#numCasePass=$((numCases - numCaseFail))
-  # Calculate the individual test case passing rate
-#testCasePassRate=$(bc -l <<< "scale=2; $numCasePass/$numCases*100")
   # Calculate the test suite passing rate
 testSuitePassRate=$(bc -l <<< "scale=2; $numPass/$numIter*100"/3 )
 
-# Determine overall result
+ # Determine overall result
 rval=3
 status="FAIL"
 if  ((numPass == numIter*3)); then
