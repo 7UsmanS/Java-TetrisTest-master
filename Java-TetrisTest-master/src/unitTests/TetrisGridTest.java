@@ -1,5 +1,5 @@
-package unitTests;
-import tetris.*;
+package tested;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,12 +15,6 @@ public class TetrisGridTest {
 
     @org.junit.After
     public void tearDown() throws Exception {
-    }
-
-    //test constructor
-    public void constructor_should_pass() {
-        assertEquals(10, grid.getWidth());
-        assertEquals(20, grid.getHeight());
     }
 
     //test MoveDown() method

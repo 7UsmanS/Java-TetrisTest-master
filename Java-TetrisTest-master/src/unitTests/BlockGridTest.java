@@ -1,5 +1,4 @@
-package unitTests;
-import tetris.*;
+package tested;
 
 import org.junit.Test;
 
